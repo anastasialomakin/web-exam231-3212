@@ -1,67 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="style/main.css">
+    <title>BuyDelight</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Название магазина</h1>
-            <div class="header-links">
-                <input type="text" placeholder="Поиск">
-                <a href="cart.html">Корзина</a>
-                <a href="profile.html">Личный кабинет</a>
-            </div>
+  <header>
+    <div class="container header-container">
+        <div class="logo-container">
+            <span class="logo montserrat-alternates-bold"><a href="index.html"><img src="img/logo.png">BuyDelight</a></span>
+            <img class="logo-icon" src="img/logo.png" alt="BuyDelight" style="display: none;"> 
         </div>
-    </header>
 
-    <div class="container">
+      <div class="search-container">
+          <input type="text" style="font-family: Montserrat Alternates, serif;" placeholder="Поиск..." class="search-input">
+          <button class="search-button">
+              <img class="search-icon" src="img/search-icon.png" alt="Найти">
+          </button>
+      </div>
+
+        <div class="header-icons">
+            <a href="cart.html" class="cart-icon">
+                <img src="img/cart.png" alt="Корзина">
+            </a>
+            <a href="orders.html" class="profile-icon">
+                <img src="img/user.png" alt="Личный кабинет">
+            </a>
+        </div>
+      </div>
+  </header>
+    
     <div class="notification-area"></div>
-
-    <aside class="sidebar">
-      <h2>Фильтр товаров</h2>
-      <form id="filter-form">
-        <div class="filter-group">
-          <label>Категория:</label>
-          <div id="category-checkboxes"></div>
-        </div>
-        <div class="filter-group">
-          <label>Стоимость:</label>
-          <input type="number" id="min-price" placeholder="От">
-          <input type="number" id="max-price" placeholder="До">
-        </div>
-        <div class="filter-group">
-            <input type="checkbox" id="discount-checkbox">
-            <label for="discount-checkbox">Только со скидкой</label>
-          </div>
-          <button type="button" id="apply-filters">Применить</button>
-      </form>
-    </aside>
-
-
+    
+    <div class="container main-container">
+      <aside class="sidebar">
+          <h2>Фильтр товаров</h2>
+          <form id="filter-form">
+              <div class="filter-group">
+                <label class="montserrat-alternates-semibold">Категория:</label>
+                <div id="category-checkboxes">
+                  
+                </div>
+              </div>
+              <div class="filter-group">
+                  <label class="montserrat-alternates-semibold">Стоимость:</label>
+                  <input type="number" id="min-price" style="font-family: Montserrat Alternates, serif;" placeholder="От">
+                  <input type="number" id="max-price" style="font-family: Montserrat Alternates, serif;" placeholder="До">
+              </div>
+              <div class="filter-group-checkbox">
+                  <input type="checkbox" id="discount-checkbox">
+                  <label for="discount-checkbox" class="montserrat-alternates-semibold">Только со скидкой</label>
+              </div>
+              <button type="button" id="apply-filters" class="montserrat-alternates-semibold">Применить</button>
+          </form>
+      </aside>
+        
       <main>
-        <h2>Каталог</h2>
-        <div class="catalog-controls">
-          <select id="sort-select">
+        <div class="catalog-header">
+            <h2 class="montserrat-alternates-semibold">Каталог</h2>
+          <select id="sort-select" class="montserrat-alternates-semibold">
             <option value="rating">По рейтингу</option>
             <option value="price_asc">По возрастанию цены</option>
             <option value="price_desc">По убыванию цены</option>
           </select>
-        </div>
+          </div>
           <div id="product-list" class="product-grid"></div>
-        <button id="load-more-button" style="display: none;">Загрузить ещё</button>
+          <button id="load-more-button" style="display: none;">Загрузить ещё</button>
       </main>
     </div>
-
+    
     <footer>
-        <div class="container">
-            <p>© 2024 Название компании</p>
-            <p>Контактные данные</p>
+        <div class="container footer-container">
+           <div class="contacts">
+            <h2 class="montserrat-alternates-regular">Контакты</h2>
+            <p class="montserrat-alternates-light">Телефон:</p> <a href="tel:+78005353535" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">+7 (000) 000-00-00</a>
+            <p class="montserrat-alternates-light">Почта:</p> <a href="email:info@buydelight.ru" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">info@buydelight.ru</a>
+           </div>
+          <p class="copyright montserrat-alternates-light">©2025 BuyDelight. Все права защищены.</p>
         </div>
     </footer>
-<script src="js/app.js"></script>
+
+    <script src="script/index.js"></script>
 </body>
 </html>
