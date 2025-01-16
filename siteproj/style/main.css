@@ -369,16 +369,6 @@ footer {
     flex-direction: column;
 }
 
-.footer a {
-    font-weight: 300;
-    font-style: normal;
-    text-decoration: none; 
-    color: #89725B;
-}
-.footer a:hover {
-    color: #677E52;
-}
-
 .social-icons {
   display: flex;
   gap: 10px;
