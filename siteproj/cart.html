@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/cart.css">
     <title>BuyDelight</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -18,8 +19,8 @@
         </div>
 
         <div class="header-icons">
-            <a href="cart.html" class="cart-icon">
-                <img src="img/cart.png" alt="Корзина">
+            <a href="index.html" class="catalog-icon">
+                <img src="img/catalog.png" alt="Каталог">
             </a>
             <a href="orders.html" class="profile-icon">
                 <img src="img/user.png" alt="Личный кабинет">
@@ -31,11 +32,68 @@
     <div class="notification-area"></div>
     
     <div class="container main-container">
-        
       <main>
-        <img src="img/test1.jpg">
-        <img src="img/test2.jpg">
-        <p>да штош</p>
+        <h2 class="montserrat-alternates-semibold">Корзина</h2>
+        <p id="empty-cart-message">
+          Корзина пуста. <a href="index.html">Перейдите в каталог</a>, чтобы добавить товары.
+        </p>
+          <div id="cart-items" class="product-grid"></div>
+        
+          <h2 class="montserrat-alternates-semibold">Оформление заказа</h2>
+          <form id="order-form">
+              <div class="form-container">
+                  <div class="form-column">
+                    <div class="form-group">
+                        <label for="full_name" class="montserrat-alternates-semibold">Имя:</label>
+                          <input type="text" id="full_name" style="font-family: Montserrat Alternates, serif;" placeholder="Введите ваше имя" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="phone" class="montserrat-alternates-semibold">Телефон:</label>
+                          <input type="text" id="phone" style="font-family: Montserrat Alternates, serif;" placeholder="Введите номер телефона" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="email" class="montserrat-alternates-semibold">Email:</label>
+                          <input type="email" id="email" style="font-family: Montserrat Alternates, serif;" placeholder="Введите ваш email" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="subscribe" class="montserrat-alternates-semibold"><input type="checkbox" id="subscribe" checked>Подписаться на рассылку</label>
+                      </div>
+                       <div class="form-group">
+                        <label for="comment" class="montserrat-alternates-semibold">Комментарий к заказу:</label>
+                        <textarea id="comment" style="font-family: Montserrat Alternates, serif;" placeholder="Введите ваше сообщение..."></textarea>
+                    </div>
+                  </div>
+                  <div class="form-column">
+                      <div class="form-group">
+                          <label for="delivery_address" class="montserrat-alternates-semibold">Адрес доставки:</label>
+                          <input type="text" id="delivery_address" style="font-family: Montserrat Alternates, serif;" placeholder="Введите адрес доставки" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="delivery_date" class="montserrat-alternates-semibold">Дата доставки:</label>
+                          <input type="date" id="delivery_date" style="font-family: Montserrat Alternates, serif;" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="delivery_interval" class="montserrat-alternates-semibold">Временной интервал доставки:</label>
+                          <select id="delivery_interval" style="font-family: Montserrat Alternates, serif;" required>
+                              <option value="9:00-14:00" style="font-family: Montserrat Alternates, serif;">9:00-14:00</option>
+                              <option value="14:00-18:00" style="font-family: Montserrat Alternates, serif;">14:00-18:00</option>
+                              <option value="18:00-22:00" style="font-family: Montserrat Alternates, serif;">18:00-22:00</option>
+                          </select>
+                      </div>
+                      <div class="form-controls">
+                        <div class="total-cost">
+                          <span class="montserrat-alternates-semibold">Итоговая стоимость:</span>
+                          <span id="total-cost-value" class="montserrat-alternates-semibold">0 руб.</span>
+                          <p>(Стоимость доставки 500 руб.)</p>
+                        </div>
+                        <div class="form-buttons">
+                          <button type="reset" class="montserrat-alternates-semibold">Сбросить</button>
+                          <button type="submit" class="montserrat-alternates-semibold">Оформить заказ</button>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </form>
       </main>
     </div>
     
@@ -50,6 +108,6 @@
         </div>
     </footer>
 
-    <script src="script/index.js"></script>
+    <script src="script/cart.js"></script>
 </body>
 </html>

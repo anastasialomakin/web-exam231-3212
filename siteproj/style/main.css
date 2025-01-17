@@ -200,14 +200,26 @@ header {
 }
 
 .notification-area {
-    background-color: #B7CA79;
-    padding: 10px;
-    color: #677E52;
-    text-align: center;
-    display: none;
-    position: sticky;
-    top: 50px;
-    z-index: 99;
+  background-color: #B7CA79;
+  padding: 10px;
+  color: #677E52;
+  text-align: center;
+  display: none;
+  position: sticky;
+  top: 50px;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notification-area .close-notification {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  color: #677E52
 }
 
 .main-container {
@@ -302,7 +314,8 @@ main {
 
 .product-card img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -330,6 +343,7 @@ main {
   color: #89725B;
   text-decoration: line-through;
 }
+
 .product-card button {
     padding: 8px 12px;
     background-color: #B7CA79;
@@ -339,17 +353,22 @@ main {
     cursor: pointer;
 }
 
+.product-card button.remove-from-cart-btn {
+  background-color: #677E52;
+  color: #B7CA79;
+}
+
 #load-more-button {
   display: block;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 10px 15px;
-    background-color: #B7CA79;
-    color: #677E52;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 15px;
+  background-color: #B7CA79;
+  color: #677E52;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 footer {
