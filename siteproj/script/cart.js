@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyCartMessage = document.getElementById('empty-cart-message');
     const orderForm = document.getElementById('order-form');
     const totalCostValue = document.getElementById('total-cost-value');
-    const deliveryCostValue = document.getElementById('delivery-cost-value');
     const notificationArea = document.querySelector('.notification-area');
     notificationArea.style.display = 'none';
 
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let products = [];
     let deliveryCost = 200;
 
-     function showNotification(message, type = 'info') {
+    function showNotification(message, type = 'info') {
         notificationArea.innerHTML = `
             <span class="notification-text">${message}</span>
             <button class="close-notification"><img src="img/close.png"></button>
@@ -23,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
         notificationArea.classList.add(type);
         notificationArea.style.display = 'flex';
 
-      const closeButton = notificationArea.querySelector('.close-notification');
-      closeButton.addEventListener('click', () => {
-        notificationArea.style.display = 'none';
-        notificationArea.classList.remove(type);
-      });
+        const closeButton = notificationArea.querySelector('.close-notification');
+        closeButton.addEventListener('click', () => {
+            notificationArea.style.display = 'none';
+            notificationArea.classList.remove(type);
+        });
         setTimeout(() => {
             notificationArea.style.display = 'none';
             notificationArea.classList.remove(type);
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `${API_URL_GOODS}?api_key=${API_KEY}`;
     };
     
-     const getApiUrlOrders = () => {
+    const getApiUrlOrders = () => {
       return `${API_URL_ORDERS}?api_key=${API_KEY}&student_id=10700`;
     };
 
@@ -48,23 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const removeProductFromCart = (productId) => {
-      const cart = getCartFromLocalStorage();
-      const updatedCart = cart.filter(id => id !== productId);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        const cart = getCartFromLocalStorage();
+        const updatedCart = cart.filter(id => id !== productId);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));  
     };
 
     const fetchProducts = async () => {
         try {
             const response = await fetch(getApiUrlGoods());
-             if (!response.ok) {
+            if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
             products = data;
-           } catch (error) {
+        } catch (error) {
             console.error('Ошибка загрузки товаров:', error);
             showNotification('Ошибка при загрузке товаров, попробуйте позже', 'error');
-           }
+        }
     };
 
     const getProductById = (productId) => {
@@ -82,13 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const cartItem = document.createElement('div');
         cartItem.classList.add('product-card');
         const imageUrl = product.image_url || 'img/placeholder.png';
-       const discountedPrice = product.discount_price !== null ? product.discount_price : product.actual_price;
-       const discountPercent =  product.discount_price !== null ? getDiscount(product.actual_price, product.discount_price) : 0;
-         const actualPriceClass = product.discount_price !== null ? 'actual-price montserrat-alternates-light discounted' : 'actual-price montserrat-alternates-semibold'
+        const discountedPrice = product.discount_price !== null ? product.discount_price : product.actual_price;
+        const discountPercent =  product.discount_price !== null ? getDiscount(product.actual_price, product.discount_price) : 0;
+        const actualPriceClass = product.discount_price !== null ? 'actual-price montserrat-alternates-light discounted' : 'actual-price montserrat-alternates-semibold'
 
         cartItem.innerHTML = `
             <div class="image-container">
-                 <img src="${imageUrl}" alt="${product.name}" style="width: 100%; height: auto;">
+                <img src="${imageUrl}" alt="${product.name}" style="width: 100%; height: auto;">
             </div>
             <div class="card-content">
               <h3 title="${product.name}" class="montserrat-alternates-regular">${product.name.length > 50 ? product.name.slice(0, 50) + '...' : product.name}</h3>
@@ -108,98 +107,118 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         `;
         const removeButton = cartItem.querySelector('.remove-from-cart-btn');
-       removeButton.addEventListener('click', () => {
-             removeCartItem(product.id, cartItem);
-       });
-         return cartItem;
+        removeButton.addEventListener('click', () => {
+            removeCartItem(product.id, cartItem);
+        });
+        return cartItem;
     };
   
     const removeCartItem = (productId, cartItem) => {
         removeProductFromCart(productId);
         cartItemsContainer.removeChild(cartItem);
-         showNotification('Товар удален из корзины', 'success');
+        showNotification('Товар удален из корзины', 'success');
+        updateCartDisplay();
         updateTotalCost();
-         updateCartDisplay();
     };
-  
 
-    const renderCartItems = () => {
-         cartItemsContainer.innerHTML = '';
-        if(cart.length === 0) {
+   const handleFormChange = () => {
+        updateTotalCost();
+   };
+
+   const renderCartItems = () => {
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
             emptyCartMessage.style.display = 'block';
+            emptyCartMessage.innerHTML = `Корзина пуста. <a href='index.html'>Перейдите в каталог</a>, чтобы добавить товары.`;
         } else {
             emptyCartMessage.style.display = 'none';
-           cart.forEach(productId => {
-            const product = getProductById(productId);
-            if (product) {
-                const cartItem = createCartItem(product);
-                cartItemsContainer.appendChild(cartItem);
-               }
-           });
+            cart.forEach(productId => {
+                const product = getProductById(productId);
+                if (product) {
+                    const cartItem = createCartItem(product);
+                    cartItemsContainer.appendChild(cartItem);
+                }
+            });
         }
     };
 
     const updateCartDisplay = () => {
-      cart = getCartFromLocalStorage();
+        cart = getCartFromLocalStorage();
         renderCartItems();
     }
   
-  const calculateDeliveryCost = () => {
-     const deliveryDate = document.getElementById('delivery_date').value;
-     const deliveryInterval = document.getElementById('delivery_interval').value;
+    const calculateDeliveryCost = () => {
+        const deliveryDate = document.getElementById('delivery_date').value;
+        const deliveryInterval = document.getElementById('delivery_interval').value;
+        if (cart.length === 0) {
+            return 0;
+        }
 
-       if (!deliveryDate || !deliveryInterval) {
+        if (!deliveryDate || !deliveryInterval) {
             return 200;
         }
 
-     const date = new Date(deliveryDate);
-     const dayOfWeek = date.getDay();
-     const hour = parseInt(deliveryInterval.split(':')[0], 10);
+        const date = new Date(deliveryDate);
+        const dayOfWeek = date.getDay();
+        const hour = parseInt(deliveryInterval.split(':')[0], 10);
 
-       let cost = 200;
+        let cost = 200;
 
-       if (dayOfWeek === 0 || dayOfWeek === 6) {
-          cost += 300;
-       } else if (hour >= 18) {
-            cost += 200;
-       }
-    return cost;
-  }
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            cost = 300;
+        } else if (hour >= 18) {
+        cost += 200;
+        }
+        return cost;
+    };
 
     const updateTotalCost = () => {
         let total = 0;
         cart.forEach(productId => {
             const product = getProductById(productId);
-           if (product) {
-             total += product.discount_price !== null ? product.discount_price : product.actual_price;
+            if (product) {
+                total += product.discount_price !== null ? product.discount_price : product.actual_price;
             }
         });
-      deliveryCost = calculateDeliveryCost();
-        totalCostValue.textContent = `${total} руб.`;
-       deliveryCostValue.textContent = `${deliveryCost} руб.`;
-
+        deliveryCost = calculateDeliveryCost();
+        const finalTotal = total + deliveryCost;
+        totalCostValue.textContent = `${finalTotal} руб.`;
+        const deliveryCostParagraph = document.getElementById('delivery-cost-paragraph');
+        if(cart.length > 0) {
+            deliveryCostParagraph.textContent = `(Стоимость доставки ${deliveryCost} руб.)`;
+            deliveryCostParagraph.style.display = 'block';
+        } else {
+            deliveryCostParagraph.style.display = 'none';
+        }
     };
-    
-     const handleFormChange = () => {
-         updateTotalCost();
-     };
+
+    const formatDate = (dateString) => {
+        if (!dateString) {
+           return null;
+         }
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+       return `${day}.${month}.${year}`;
+  };
+
     const submitOrderForm = async (event) => {
         event.preventDefault();
         
-         const formData = new FormData(orderForm);
-          const orderData = {
-           full_name: formData.get('full_name'),
-            email: formData.get('email'),
-            phone: formData.get('phone'),
-            subscribe: formData.get('subscribe') === 'on',
-            delivery_address: formData.get('delivery_address'),
-             delivery_date: formData.get('delivery_date'),
-            delivery_interval: formData.get('delivery_interval'),
-            comment: formData.get('comment'),
+         const orderData = {
+            full_name: document.getElementById('full_name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            subscribe: document.getElementById('subscribe').checked,
+            delivery_address: document.getElementById('delivery_address').value,
+            delivery_date: formatDate(document.getElementById('delivery_date').value),
+             delivery_interval: document.getElementById('delivery_interval').value,
+            comment: document.getElementById('comment').value,
               good_ids: cart,
             student_id: 10700
          };
-
+        console.log('submitOrderForm: orderData before sending =', orderData);
       try {
             const response = await fetch(getApiUrlOrders(), {
               method: 'POST',
@@ -208,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
                },
               body: JSON.stringify(orderData)
             });
-      
+           console.log('submitOrderForm: server response =', response);
          if (!response.ok) {
               const errorData = await response.json();
               throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
@@ -224,13 +243,13 @@ document.addEventListener('DOMContentLoaded', () => {
        }
    };
 
-      orderForm.addEventListener('submit', submitOrderForm);
+    orderForm.addEventListener('submit', submitOrderForm);
     orderForm.addEventListener('change', handleFormChange);
     
     const init = async () => {
         await fetchProducts();
-         updateCartDisplay();
+        updateCartDisplay();
         updateTotalCost();
     };
-      init();
+    init();
 });
