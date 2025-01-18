@@ -12,60 +12,53 @@
   <header>
     <div class="container header-container">
         <div class="logo-container">
-            <span class="logo montserrat-alternates-bold"><a href="index.html"><img src="img/logo.png">BuyDelight</a></span>
-            <img class="logo-icon" src="img/logo.png" alt="BuyDelight" style="display: none;"> 
+          <span class="logo montserrat-alternates-bold"><a href="index.html"><img src="img/logo.png">BuyDelight</a></span>
+          <img class="logo-icon" src="img/logo.png" alt="BuyDelight" style="display: none;"> 
         </div>
 
         <div class="header-icons">
-          <a href="index.html" class="catalog-icon">
-            <img src="img/catalog.png" alt="Каталог">
-            </a>
-          <a href="cart.html" class="cart-icon">
-              <img src="img/cart.png" alt="Корзина">
-          </a>
+          <a href="index.html" class="catalog-icon"><img src="img/catalog.png" alt="Каталог"></a>
+          <a href="cart.html" class="cart-icon"><img src="img/cart.png" alt="Корзина"></a>
         </div>
       </div>
       <div class="notification-area"></div>
   </header>
 
-    <div class="container main-container">
-      <main>
-        <h2 class="montserrat-alternates-semibold">Заказы</h2>
-        <div id="order-list">
-          <table class="order-table">
-              <thead>
-              </thead>
-            <tbody id="order-table-body">
-                </tbody>
-          </table>
-          <p id="empty-order-message" style="display: none;">У вас пока нет заказов.</p>
+  <div class="container main-container">
+    <main>
+      <h2 class="montserrat-alternates-semibold">Заказы</h2>
+      <div id="order-list">
+        <table class="order-table">
+          <thead></thead>
+          <tbody id="order-table-body"></tbody>
+        </table>
+        <p id="empty-order-message" style="display: none;">У вас пока нет заказов.</p>
       </div>
     </main>
+  </div>
+  <footer>
+    <div class="container footer-container">
+      <div class="contacts">
+        <h2 class="montserrat-alternates-regular">Контакты</h2>
+        <p class="montserrat-alternates-light">Телефон:</p> <a href="tel:+78005353535" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">+7 (000) 000-00-00</a>
+        <p class="montserrat-alternates-light">Почта:</p> <a href="email:info@buydelight.ru" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">info@buydelight.ru</a>
+      </div>
+      <p class="copyright montserrat-alternates-light">©2025 BuyDelight. Все права защищены.</p>
     </div>
-    <footer>
-        <div class="container footer-container">
-           <div class="contacts">
-            <h2 class="montserrat-alternates-regular">Контакты</h2>
-            <p class="montserrat-alternates-light">Телефон:</p> <a href="tel:+78005353535" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">+7 (000) 000-00-00</a>
-            <p class="montserrat-alternates-light">Почта:</p> <a href="email:info@buydelight.ru" class="montserrat-alternates-light" style="text-decoration: none; color: #89725B;">info@buydelight.ru</a>
-           </div>
-          <p class="copyright montserrat-alternates-light">©2025 BuyDelight. Все права защищены.</p>
+  </footer>
+
+  <div id="order-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-button" id="close-modal"><img src="img/close.png"></span>
+        <h2 id="modal-title" class="montserrat-alternates-semibold"></h2>
+        <div id="modal-body"></div>
+
+        <div class="modal-buttons">
+          <button id="save-order" style="display: none;" class="montserrat-alternates-semibold">Сохранить</button>
+          <button id="delete-order" style="display: none;" class="montserrat-alternates-semibold">Да</button>
+          <button id="cancel-delete" style="display: none;" class="montserrat-alternates-semibold">Нет</button>
+          <button id="close-order" style="display: none;" class="montserrat-alternates-semibold">Закрыть</button>
         </div>
-    </footer>
-    <div id="order-modal" class="modal" style="display: none;">
-      <div class="modal-content">
-          <span class="close-button" id="close-modal"><img src="img/close.png"></span>
-          <h2 id="modal-title" class="montserrat-alternates-semibold"></h2>
-         <div id="modal-body">
-         </div>
-
-          <div class="modal-buttons">
-              <button id="save-order" style="display: none;" class="montserrat-alternates-semibold">Сохранить</button>
-            <button id="delete-order" style="display: none;" class="montserrat-alternates-semibold">Да</button>
-            <button id="cancel-delete" style="display: none;" class="montserrat-alternates-semibold">Нет</button>
-            <button id="close-order" style="display: none;" class="montserrat-alternates-semibold">Закрыть</button>
-
-          </div>
       </div>
   </div>
 <script src="script/orders.js"></script>

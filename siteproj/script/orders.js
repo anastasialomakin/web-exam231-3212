@@ -14,61 +14,64 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeOrderButton = document.getElementById('close-order');
   const emptyOrderMessage = document.getElementById('empty-order-message');
   notificationArea.style.display = 'none';
+
   let orders = [];
   let products = [];
   let selectedOrder = null;
 
   function showNotification(message, type = 'info') {
-       notificationArea.innerHTML = `
-          <span class="notification-text">${message}</span>
-          <button class="close-notification"><img src="img/close.png"></button>
-      `;
-      notificationArea.classList.add(type);
-      notificationArea.style.display = 'flex';
+    notificationArea.innerHTML = `
+      <span class="notification-text">${message}</span>
+      <button class="close-notification"><img src="img/close.png"></button>`;
+    notificationArea.classList.add(type);
+    notificationArea.style.display = 'flex';
 
     const closeButton = notificationArea.querySelector('.close-notification');
     closeButton.addEventListener('click', () => {
       notificationArea.style.display = 'none';
       notificationArea.classList.remove(type);
     });
-      setTimeout(() => {
-          notificationArea.style.display = 'none';
-          notificationArea.classList.remove(type);
-      }, 5000);
+    setTimeout(() => {
+      notificationArea.style.display = 'none';
+      notificationArea.classList.remove(type);
+    }, 5000);
   }
 
   const getApiUrlOrders = (orderId = '') => {
-     return `${API_URL_ORDERS}${orderId ? `/${orderId}` : ''}?api_key=${API_KEY}&student_id=10700`;
+    return `${API_URL_ORDERS}${orderId ? `/${orderId}` : ''}?api_key=${API_KEY}&student_id=10700`;
   };
+
   const getApiUrlGoods = () => {
     return `${API_URL_GOODS}?api_key=${API_KEY}`;
-   };
- const fetchProducts = async () => {
-      try {
-          const response = await fetch(getApiUrlGoods());
-           if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-           }
-           return await response.json();
-       } catch (error) {
-           console.error('Ошибка загрузки товаров:', error);
-          showNotification('Ошибка при загрузке товаров, попробуйте позже', 'error');
-       }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(getApiUrlGoods());
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+        console.error('Ошибка загрузки товаров:', error);
+        showNotification('Ошибка при загрузке товаров, попробуйте позже', 'error');
+    }
   };
   
   const fetchOrders = async () => {
     try {
-        const response = await fetch(getApiUrlOrders());
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-         }
-         orders = await response.json();
-         renderOrderTable();
-      } catch (error) {
+      const response = await fetch(getApiUrlOrders());
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      orders = await response.json();
+        renderOrderTable();
+    } catch (error) {
         console.error('Ошибка загрузки заказов:', error);
-           showNotification('Ошибка при загрузке заказов, попробуйте позже', 'error');
-     }
+        showNotification('Ошибка при загрузке заказов, попробуйте позже', 'error');
+    }
   };
+  
  const formatDate = (dateString) => {
       if (!dateString) {
          return null;

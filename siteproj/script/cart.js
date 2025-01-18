@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_KEY = 'a61c953a-c4cb-47e4-abfe-ce2446e1d2d5';
     const API_URL_GOODS = 'https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/goods';
     const API_URL_ORDERS = 'https://edu.std-900.ist.mospolytech.ru/exam-2024-1/api/orders';
-
     const cartItemsContainer = document.getElementById('cart-items');
     const emptyCartMessage = document.getElementById('empty-cart-message');
     const orderForm = document.getElementById('order-form');
@@ -17,8 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showNotification(message, type = 'info') {
         notificationArea.innerHTML = `
             <span class="notification-text">${message}</span>
-            <button class="close-notification"><img src="img/close.png"></button>
-        `;
+            <button class="close-notification"><img src="img/close.png"></button>`;
         notificationArea.classList.add(type);
         notificationArea.style.display = 'flex';
 
@@ -70,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return products.find(product => product.id === productId);
     };
 
-     const getDiscount = (actualPrice, discountPrice) => {
+    const getDiscount = (actualPrice, discountPrice) => {
         if (discountPrice === null) {
             return 0;
         }
@@ -104,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             </div>
              <button class="remove-from-cart-btn montserrat-alternates-semibold">Удалить из корзины</button>
-        </div>
-        `;
+        </div>`;
         const removeButton = cartItem.querySelector('.remove-from-cart-btn');
         removeButton.addEventListener('click', () => {
             removeCartItem(product.id, cartItem);
@@ -123,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    const handleFormChange = () => {
         updateTotalCost();
-   };
+    };
 
    const renderCartItems = () => {
         cartItemsContainer.innerHTML = '';
@@ -153,17 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cart.length === 0) {
             return 0;
         }
-
         if (!deliveryDate || !deliveryInterval) {
             return 200;
         }
-
         const date = new Date(deliveryDate);
         const dayOfWeek = date.getDay();
         const hour = parseInt(deliveryInterval.split(':')[0], 10);
-
         let cost = 200;
-
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             cost = 300;
         } else if (hour >= 18) {
@@ -195,53 +188,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const formatDate = (dateString) => {
         if (!dateString) {
            return null;
-         }
-      const date = new Date(dateString);
-      const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const year = date.getFullYear();
-       return `${day}.${month}.${year}`;
-  };
+        }
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}.${month}.${year}`;
+    };
 
     const submitOrderForm = async (event) => {
         event.preventDefault();
         
-         const orderData = {
+        const orderData = {
             full_name: document.getElementById('full_name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
             subscribe: document.getElementById('subscribe').checked,
             delivery_address: document.getElementById('delivery_address').value,
             delivery_date: formatDate(document.getElementById('delivery_date').value),
-             delivery_interval: document.getElementById('delivery_interval').value,
+            delivery_interval: document.getElementById('delivery_interval').value,
             comment: document.getElementById('comment').value,
-              good_ids: cart,
+            good_ids: cart,
             student_id: 10700
-         };
-        console.log('submitOrderForm: orderData before sending =', orderData);
-      try {
+        };
+        try {
             const response = await fetch(getApiUrlOrders(), {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-               },
-              body: JSON.stringify(orderData)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData)
             });
-           console.log('submitOrderForm: server response =', response);
-         if (!response.ok) {
-              const errorData = await response.json();
-              throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
-           }
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${JSON.stringify(errorData)}`);
+            }
             showNotification('Заказ успешно оформлен!', 'success');
-           localStorage.removeItem('cart');
-           setTimeout(() => {
-            window.location.href = 'index.html';
-         }, 2000);
-       } catch (error) {
-         console.error('Ошибка оформления заказа:', error);
-           showNotification('Ошибка при оформлении заказа, попробуйте позже', 'error');
-       }
-   };
+            localStorage.removeItem('cart');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        } catch (error) {
+            console.error('Ошибка оформления заказа:', error);
+            showNotification('Ошибка при оформлении заказа, попробуйте позже', 'error');
+        }
+    };
 
     orderForm.addEventListener('submit', submitOrderForm);
     orderForm.addEventListener('change', handleFormChange);
@@ -251,5 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCartDisplay();
         updateTotalCost();
     };
+    
     init();
 });
