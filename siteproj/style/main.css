@@ -174,7 +174,7 @@ header {
     padding: 8px 12px;
     background-color: #B7CA79;
     color: #677E52;
-    border-color: #677E52;
+    border: 1px solid #677E52;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -204,9 +204,9 @@ header {
   padding: 10px;
   color: #677E52;
   text-align: center;
-  display: none;
+  display: none; 
   position: sticky;
-  top: 50px;
+  top: 50px; 
   z-index: 99;
   display: flex;
   align-items: center;
@@ -229,12 +229,18 @@ header {
 }
 
 .sidebar {
-    width: 25%;
-    padding: 20px;
-    background-color: #B0CC99;
-    border-radius: 8px;
-    box-sizing: border-box;
-    flex-shrink: 0;
+  width: 25%;
+  padding: 20px;
+  background-color: #B0CC99;
+  border-radius: 8px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  height: fit-content;
+   max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  position: sticky;
+  top: 70px;
+  margin-top: 20px;
 }
 
 .sidebar h2 {
@@ -244,35 +250,60 @@ header {
 }
 
 .filter-group {
-    margin-bottom: 15px;
-}
-
-.filter-group-checkbox{
-    margin-bottom: 15px;
-    display: flex;
-    font-weight: bold;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #89725B;
+  display: block;
+  margin-bottom: 10px;
+  color: #89725B;
+}
+.filter-group-checkbox{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.filter-group-checkbox input[type="checkbox"],
+.filter-group-checkbox label{
+margin-right: 5px;
+margin-bottom: 0;
 }
 
-.filter-group input[type="number"],
-.filter-group input[type="checkbox"] {
-    margin-bottom: 10px;
+.filter-group input[type="number"] {
+  width: 45%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.filter-group-inputs{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+.filter-group-inputs label{
+  display: block;
+  margin-bottom: 0;
+}
+
+.filter-group-inputs input[type="number"]{
+  width: 45%;
 }
 
 .sidebar button {
-    padding: 10px 15px;
-    border-color: #677E52;
-    background-color: #B7CA79;
-    color: #677E52;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #B7CA79;
+  color: #677E52;
+  border: 1px solid #677E52;
+  border-radius: 5px; 
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
 }
 
 main {
@@ -305,57 +336,76 @@ main {
 }
 
 .product-card {
-    background-color: #B0CC99;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    box-sizing: border-box;
+  background-color: #B0CC99;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 400px; 
 }
 
-.product-card img {
-    max-width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
+.product-card .image-container {
+  width: 100%;
+  height: 200px; 
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
+.product-card .image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  
+}
 .product-card h3 {
-    margin: 0 0 10px;
-    color: #89725B;
-    font-size: 1.1em;
+  margin: 0 0 10px;
+  color: #89725B;
+  font-size: 1.1em;
 }
 .product-card .rating{
-  margin-bottom: 10px;
+margin-bottom: 10px;
+display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 .product-card .price{
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+  color: #677E52;
 }
-
-.product-card .discount-price {
-    font-weight: bold;
-    color: #677E52;
-    margin-right: 5px;
-  }
-
-.product-card .actual-price {
+.product-card .price .actual-price {
   color: #89725B;
+  text-decoration: none;
+}
+.product-card .price .actual-price.discounted{
   text-decoration: line-through;
 }
-
 .product-card button {
-    padding: 8px 12px;
-    background-color: #B7CA79;
-    color: #677E52;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 8px 12px;
+  background-color: #B7CA79;
+  color: #677E52;
+  border: 1px solid #677E52;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; 
 }
 
 .product-card button.remove-from-cart-btn {
   background-color: #677E52;
   color: #B7CA79;
+}
+
+.product-card .card-content{
+  display: flex;
+  flex-direction: column;
+   flex: 1;
+  justify-content: flex-end;
 }
 
 #load-more-button {
@@ -366,7 +416,7 @@ main {
   padding: 10px 15px;
   background-color: #B7CA79;
   color: #677E52;
-  border: none;
+  border: 1px solid #677E52;
   border-radius: 5px;
   cursor: pointer;
 }
